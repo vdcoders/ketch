@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.ksp)
 }
 version = "0.0.2"
+
 android {
     namespace = "com.ketch"
     compileSdk = libs.versions.compileSdk.get().toInt()
