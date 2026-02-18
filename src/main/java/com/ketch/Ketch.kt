@@ -673,8 +673,14 @@ class Ketch private constructor(
             "Missing ${if (path.isEmpty()) "path" else "fileName"}"
         }
 
-        // This will create a temp file which will be renamed after successful download.
-        // This will also make sure each file name is unique.
+        // 1) Ensure directory exists
+        val dir = File(path)
+        if (!dir.exists()) {
+            val ok = dir.mkdirs()
+        }
+        require(dir.exists() && dir.isDirectory) {
+            "Download directory does not exist or not accessible: $path"
+        }
         val newFileName = FileUtil.resolveNamingConflicts(fileName, path)
         FileUtil.createTempFileIfNotExists(path, newFileName)
 
